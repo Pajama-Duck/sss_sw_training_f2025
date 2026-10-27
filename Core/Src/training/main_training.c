@@ -21,6 +21,7 @@ int main(void)
 	setup_training();
 	rcc_enable(GPIO_C_ENABLE);
 	gpio_configureMode(LED_PORT, LED_PIN, GPIO_AF_PUSH_PULL, GPIO_LOW_SPEED);
+	gpio_high(LED_PORT, LED_PIN);
 
 	int count = 0;
 
@@ -30,8 +31,8 @@ int main(void)
 	  HAL_Delay(1000);
 	  printMsg("Hello #%d\r\n", count++);
 	  if(count % 2 == 1){
-		  gpio_low(LED_PORT, LED_PIN);
-	  } else gpio_high(LED_PORT, LED_PIN);
+		  gpio_high(LED_PORT, LED_PIN);
+	  } else gpio_low(LED_PORT, LED_PIN);
 	}
 }
 

@@ -11,21 +11,20 @@
 #include "gpio_training.h"
 
 void gpio_high(GPIO_TypeDef *port, int pin) {
-	port->ODR = GPIO_HIGH << pin;
+	port->ODR |= GPIO_HIGH << pin;
 }
 
 void gpio_low(GPIO_TypeDef *port, int pin) {
-	port->ODR = GPIO_LOW << pin;
+	port->ODR &= GPIO_LOW << pin;
 }
 
 void gpio_set(GPIO_TypeDef *port, int pin, GPIO_VALUE value) {
-	port->ODR = value << pin;
+	port->ODR |= value << pin;
 }
 
 void gpio_configureMode(GPIO_TypeDef *port, int pin, GPIO_CNF cnf, GPIO_MODE mode) {
-	port->CRL = (00 << 3) | (cnf << 1) | (mode << 2) | mode;
-	port->CRH = (00 << 3) | (cnf << 1) | (mode << 2) | mode;;
-	port->ODR = mode << pin;
+	//port->CRH = (cnf << 21) | (mode << 19);
+	port->CRH = cnf << ((pin-7) * 3 + 3) | (mode << ((pin-7) * 3 + 1));
 
 }
 
